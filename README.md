@@ -1,158 +1,186 @@
+# Samsung Checkout DPI Architecture – Nike Physical-Product POC
 
+## 1. DPI Portal and Samsung Checkout
 
-dpi portal designed around product sold through samsung tv apps
+**DPI Portal** → Designed around products sold through Samsung TV apps.
 
+The DPI portal is used by eligible Samsung TV partners to register products, configure purchase options, manage subscriptions, and view transactions.
 
-dpi portal -> used by eligible samsung tv partners to register products, configure purchase option, manage subscription, view transaction,
+**Samsung Checkout** → The payment system that presents the purchase flow and processes a supported purchase.
 
-samsung checkout -> the payment that presents the purchase flow and processes a supported purchase
+## 2. Compare Art Store and HBO Max Services
 
-compare art-app and hbo-max service -> 
+### Samsung Art Store (Samsung Service)
 
-samsung art store (samsung service ) ->
+It is a Samsung service. The Samsung team can coordinate internally to register the app, configure Samsung Checkout, and request DPI access.
 
-it is a samsung service, samsung team can coordinate internally to register, the app, configure samsung checkout , request dpi access
+### HBO Max (Third-Party Provider)
 
-hbo max -> third party prodiver
+HBO Max is provided by an external company. Its team works with Samsung to register its app, integrate Checkout, and obtain the required DPI access.
 
-hbo max is provided by an external company, its team works with samsung to register its app, integrate checkout , and obtain required dpi
-access
+## 3. Steps to Get Access and Required Setup
 
-steps for get access thr required things ->
+1. **Partnership and App Registration**
+   - Register the company/app through the applicable Seller Office process.
 
-1. partnership and app registration -> ( register the company/app through the applicable seller office process)
-2. enable checkout -> set billing to use and samsung checkout on tv to yes in the documented registration workflow
-3. obtain the dpi access -> access the dpi portal for the registration app , subject to the required approval and permission
-4. consfigure and test purchases -> register product, integrate the samsung checkout api, and test the purchase flow
+2. **Enable Checkout**
+   - Set billing to use Samsung Checkout on TV to **Yes** in the documented registration workflow.
 
+3. **Obtain DPI Access**
+   - Access the DPI portal for the registered app, subject to the required approval and permissions.
 
-for our poc like nike ad on the first screen how it flow happening for buy the product by the user -> 
+4. **Configure and Test Purchases**
+   - Register the product, integrate the Samsung Checkout API, and test the purchase flow.
 
-samsung documentation confirm that , with dynamic product, the partner manages actual product information and prices in its own cms, 
-while dpi contains a representative product and the settings needed for the approved checkout integration
+## 4. Nike Advertisement POC: How Does the Purchase Flow Work?
 
-cms/commerce backend -> store nike, sku, size, or price related information and the product details
+For our POC, assume a Nike advertisement appears on the first screen of the Samsung TV. How does the purchase flow work when the user wants to buy the product?
 
-dpi verification -> samsung checkout calls our configured verify uri to validate the purchase details
+Samsung documentation confirms that, with Dynamic Product, the partner manages actual product information and prices in its own CMS, while DPI contains a representative product and the settings needed for the approved Checkout integration.
 
-samsung checkout -> displays the purchase confirmation and return the payment results
+### CMS / Commerce Backend
+- Stores Nike SKU, size, price-related information, and product details.
 
-order and fullfillment -> retailer handles the order and delivery, if physical-goods are approved
+### DPI Verification
+- Samsung Checkout calls our configured Verify URI to validate the purchase details.
 
+### Samsung Checkout
+- Displays the purchase confirmation and returns the payment results.
 
-what to register in the dpi portal -> 
+### Order and Fulfillment
+- The retailer handles the order and delivery, if physical goods are approved.
 
-assume the samsung checkout team approves the physical-goods use case and our application is authorized to use the dynamic product
+## 5. What to Register in the DPI Portal?
 
-dpi configuration ->
+Assume the Samsung Checkout team approves the physical-goods use case and our application is authorized to use Dynamic Product.
 
-product name, product id,product description, product type, verify the url, country and location
+### DPI Configuration
 
+- Product name
+- Product ID
+- Product description
+- Product type
+- Verify URL
+- Country and location
 
-what to store in our cms (content management system) ->
+## 6. What to Store in Our CMS (Content Management System)?
 
-the stock, size, shipping and return fields, above are recommended commerce-backend fields for your proposed retail system, not a claim
-that dpi requires all of them
+The following are recommended commerce-backend fields for the proposed retail system, not a claim that DPI requires all of them:
 
+- Stock
+- Size
+- Shipping
+- Return fields
 
-how it related all the things in the poc -> for the nike advertisement poc on the samsung tv , each component has different role ->
+## 7. How All Components Relate to the POC
 
-1. samsung tv seller office -> 
+For the Nike advertisement POC on the Samsung TV, each component has a different role.
 
-role -> register and manage your samsung tv application
-example -> register the adagent tv app and configure the required billing settings to request samsung checkout access
+### 7.1 Samsung TV Seller Office
 
-2. dpi portal/dpi server ->
+**Role:** Register and manage your Samsung TV application.
 
-role -> manage the representative product configuration and support the approved dynamic product purchase and verification flow
-example -> register a repesentative product such as adagent_retail_01 and configure the verification endpoint
+**Example:** Register the AdAgent TV app and configure the required billing settings to request Samsung Checkout access.
 
-3. cms/content management system
+### 7.2 DPI Portal / DPI Server
 
-role -> store and manage the actual products and their current details
-example -> store nike air max size us 9, price, and stock availability, verify the product and price when a purchase is requested
+**Role:** Manage the representative product configuration and support the approved Dynamic Product purchase and verification flow.
 
-4. adagent side -> 
+**Example:** Register a representative product such as `adagent_retail_01` and configure the verification endpoint.
 
-role -> display advertisement and connect each ad to the relevant product information purchase system
-example -> show a nike ad on the tv home screen, when the user selects shop now, open the product detail page 
+### 7.3 CMS / Content Management System
 
-5. samsung checkout ->
+**Role:** Store and manage the actual products and their current details.
 
-role -> provide the supported purchase and payment interface
-example -> show the purchase details and let the user complete payment through the approved checkout flow.
+**Example:** Store Nike Air Max, size US 9, price, and stock availability, and verify the product and price when a purchase is requested.
 
-validate purchase details and supoprt the payment flow supported
+### 7.4 AdAgent Side
 
-handles order creation or delivery , 
+**Role:** Display advertisements and connect each ad to the relevant product information and purchase system.
 
+**Example:** Show a Nike ad on the TV home screen. When the user selects **Shop Now**, open the product detail page.
 
-how it works ->
+### 7.5 Samsung Checkout
 
-adagent request the selected shoe details from your cms (content management system)
-our cms returns the current price and availability
-the app initates the approved samsung checkout flow using the dpi representative product the the actual product identifier
-your verification endpoint checks that the product and price are valid or not
--> dpi contains the representaive product configuration: our cms contains the actual product catalogue
+**Role:** Provide the supported purchase and payment interface.
 
+**Example:** Show the purchase details and let the user complete payment through the approved Checkout flow.
 
-question -> 
+- Validates purchase details and supports the payment flow.
+- Handles order creation or delivery.
 
-dynamic product integration supports physical-goodds
+## 8. How It Works
 
-use samsung checkout to sell physical-goods 
+1. AdAgent requests the selected shoe details from our CMS (Content Management System).
+2. Our CMS returns the current price and availability.
+3. The app initiates the approved Samsung Checkout flow using the DPI representative product and the actual product identifier.
+4. Our verification endpoint checks whether the product and price are valid.
 
-query for the block diagram -<
+**DPI contains the representative product configuration; our CMS contains the actual product catalogue.**
+
+## 9. Main Question
+
+**Does Dynamic Product Integration support physical goods?**
+
+Can we use Samsung Checkout to sell physical goods?
+
+### Query for the Block Diagram
 
 Create a professional block diagram for Samsung HQ explaining the Samsung Checkout DPI architecture, including each DPI component and its role. Show how AdAgent, DPI Portal/Server, Samsung Checkout, and the CMS/Commerce Backend interact in our Nike physical-product POC, including communication paths and data exchange. Clearly explain the CMS role in the Dynamic Product model, including product catalogue, pricing, stock, and product verification through the Verify URI. Use labeled directional arrows, concise component descriptions, and clearly mark physical-product support as requiring Samsung confirmation.
 
-
-gauss-gemini query for the block diagram ->
+### Gauss-Gemini Query for the Block Diagram
 
 Create a polished, presentation-ready architecture infographic as an actual rendered image, not Mermaid code, PlantUML, ASCII art, or a text-only diagram. Use a professional enterprise design with color-coded components, clear directional arrows, icons, concise labels, and a white background. Explain the roles of AdAgent, DPI Portal/Server, CMS/Commerce Backend, and Samsung Checkout in our Nike physical-product POC. Show how these components communicate and how the CMS supports the Dynamic Product model, including product catalogue, pricing, stock, and Verify URI. Mark physical-product support as requiring Samsung confirmation.
 
+## 10. Standard Product vs. Dynamic Product
 
 The main difference is who manages the product details, such as price and availability.
-1. Standard Product — DPI manages product configuration
-Example: A streaming subscription costing $10/month.
+
+### 10.1 Standard Product — DPI Manages Product Configuration
+
+**Example:** A streaming subscription costing $10/month.
+
 - The business registers the product and its price in the DPI system.
 - The app gets the registered product information through DPI.
 - Samsung Checkout handles the purchase.
-App
-Requests subscription details
 
-DPI Server
-Provides registered product and price
+**Flow:**
 
-Samsung Checkout
-Processes the purchase
+**App** → Requests subscription details
 
+**DPI Server** → Provides registered product and price
 
-2. Dynamic Product — CMS manages actual product details
-Example: Nike shoes with different sizes, colors, prices, and stock levels.
+**Samsung Checkout** → Processes the purchase
+
+### 10.2 Dynamic Product — CMS Manages Actual Product Details
+
+**Example:** Nike shoes with different sizes, colors, prices, and stock levels.
+
 - The Nike commerce backend (CMS) manages the actual product catalogue, current prices, and stock.
-- DPI provides the integration and verification mechanism for the dynamic product.
+- DPI provides the integration and verification mechanism for the Dynamic Product.
 - DPI can contact the CMS through its Verify URI to check whether the product and price are valid.
 - Samsung Checkout handles the purchase if this product type is supported and approved.
-AdAgent
-User selects Nike shoes
 
-DPI Server
-Coordinates the approved dynamic-product flow
+**Flow:**
 
-Nike CMS / Commerce Backend
-Checks product ID, size, current price, and stock
+**AdAgent** → User selects Nike shoes
 
-Samsung Checkout
-Processes the purchase, subject to approval
+**DPI Server** → Coordinates the approved Dynamic Product flow
 
+**Nike CMS / Commerce Backend** → Checks product ID, size, current price, and stock
 
-Remember this simple example
-Standard product	Dynamic product
-Subscription: $10/month	Nike shoes: $100, size 9
-Product configuration is registered in DPI	Actual catalogue and price are managed by CMS
-DPI provides the registered product information	CMS verifies the current product details through the configured integration
-Why use CMS for Dynamic Products? Nike may have thousands of products, changing prices, and stock levels. Maintaining every live product detail in DPI would be inconvenient. The CMS already manages that information, so DPI can use it through the approved integration.
-Important: This explains the general Dynamic Product model. Whether Samsung Checkout supports selling physical shoes through this flow must be confirmed with Samsung.
+**Samsung Checkout** → Processes the purchase, subject to approval
 
+## 11. Remember This Simple Example
 
+| Standard Product | Dynamic Product |
+|---|---|
+| Subscription: $10/month | Nike shoes: $100, size 9 |
+| Product configuration is registered in DPI | Actual catalogue and price are managed by CMS |
+| DPI provides the registered product information | CMS verifies the current product details through the configured integration |
+
+### Why Use CMS for Dynamic Products?
+
+Nike may have thousands of products, changing prices, and stock levels. Maintaining every live product detail in DPI would be inconvenient. The CMS already manages that information, so DPI can use it through the approved integration.
+
+**Important:** This explains the general Dynamic Product model. Whether Samsung Checkout supports selling physical shoes through this flow must be confirmed with Samsung.
