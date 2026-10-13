@@ -120,9 +120,7 @@ For the Nike advertisement POC on the Samsung TV, each component has a different
 
 ## 9. Main Question
 
-**Does Dynamic Product Integration support physical goods?**
-
-Can we use Samsung Checkout to sell physical goods?
+Can a company use Samsung’s DPI system and Samsung Checkout to sell real-world products that must be delivered to the customer, rather than digital products or subscriptions?
 
 ### Query for the Block Diagram
 
